@@ -22,6 +22,13 @@ public class AmazonTests {
         System.setProperties(timeOutprops);
         System.setProperty("webdriver.chrome.driver",SELENIUM_HOME+"/Chrome/chromedriver");
 
+        try {
+            ClassLoader.getSystemClassLoader().loadClass("org.slf4j.LoggerFactory");
+            ClassLoader.getSystemClassLoader().loadClass("org.slf4j.Logger");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
