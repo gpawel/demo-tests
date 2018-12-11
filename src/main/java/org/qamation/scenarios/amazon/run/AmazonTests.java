@@ -3,13 +3,11 @@ package org.qamation.scenarios.amazon.run;
 import org.openqa.selenium.WebDriver;
 import org.qamation.scenarios.amazon.AmazonLogin;
 import org.qamation.scenarios.amazon.AmazonOpen;
-import org.qamation.utils.FileUtils;
 import org.qamation.webdriver.utils.WebDriverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.Properties;
