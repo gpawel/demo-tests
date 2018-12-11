@@ -2,6 +2,7 @@ package org.qamation.scenarios.amazon.run;
 
 import org.openqa.selenium.WebDriver;
 import org.qamation.scenarios.amazon.AmazonLogin;
+import org.qamation.scenarios.amazon.AmazonOpen;
 import org.qamation.utils.FileUtils;
 import org.qamation.webdriver.utils.WebDriverFactory;
 import org.slf4j.Logger;
@@ -27,18 +28,10 @@ public class AmazonTests {
 
     @BeforeClass
     public void setUp() {
-        //Properties timeOutprops = FileUtils.loadPropertiesFile(TIME_OUT_PROPERTIES);
-        //System.setProperties(timeOutprops);
         System.setProperty("webdriver.chrome.driver",SELENIUM_HOME+"/ChromeDriver/chromedriver.exe");
-        /*
-        try {
-            ClassLoader.getSystemClassLoader().loadClass("org.slf4j.LoggerFactory");
-            ClassLoader.getSystemClassLoader().loadClass("org.slf4j.Logger");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        */
         driver = WebDriverFactory.createChromeWebDriver();
+        AmazonOpen open = new AmazonOpen(driver);
+        open.run();
 
     }
 
@@ -55,6 +48,6 @@ public class AmazonTests {
 
     @AfterClass
     public void tearDown() {
-        driver.quit();
+        //driver.quit();
     }
 }

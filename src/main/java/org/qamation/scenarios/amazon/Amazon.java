@@ -11,6 +11,5 @@ public class Amazon {
     public Amazon(WebDriver driver) {
         this.driver = driver;
         page = new GeneralPage(driver);
-        page.openPage("https://amazon.ca");
     }
 }
