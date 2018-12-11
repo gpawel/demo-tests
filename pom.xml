@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>qamation</groupId>
+    <groupId>org.qamation</groupId>
     <artifactId>tests_for_amazon</artifactId>
     <version>0.1</version>
     <properties>
@@ -17,6 +17,12 @@
             <groupId>org.qamation</groupId>
             <artifactId>utils</artifactId>
             <version>4.0.0</version>
+            <exclusions>
+                <exclusion>  <!-- declare the exclusion here -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.qamation</groupId>
@@ -68,6 +74,11 @@
             <artifactId>selenium-api</artifactId>
             <version>3.14.0</version>
         </dependency>
+        <!--dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.71</version>
+        </dependency-->
         <!--
                 <dependency>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -107,15 +118,39 @@
                             <transformers>
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.qamation.scenarios.amazon.run.AmazonTests</mainClass>
+                                    <mainClass>org.testng.TestNG</mainClass>
                                 </transformer>
                             </transformers>
-                            <minimizeJar>true</minimizeJar>
+                            <minimizeJar>false</minimizeJar>
                             <finalName>demo-tests</finalName>
                          </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <!--plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        org.testng.TestNG
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>tests_for_amazon</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
         </plugins>
     </build>
 
