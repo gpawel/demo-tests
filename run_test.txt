@@ -1,21 +1,2 @@
-https://stackoverflow.com/questions/11896791/how-to-run-testng-from-command-line
 
-C:\projectfred> java -cp "path-tojar/testng.jar:path_to_yourtest_classes" org.testng.TestNG testng.xml
-
-C:\TestNG_WORKSPACE>java -cp "C:\TestNG_WORKSPACE" org.testng.TestNG testng.xml
-
-<suite name="Suite1" verbose="1" >
-  <test name="Nopackage" >
-    <classes>
-       <class name="NoPackageTest" />
-    </classes>
-  </test>
- 
-  <test name="Regression1">
-    <classes>
-      <class name="test.sample.ParameterSample"/>
-      <class name="test.sample.ParameterTest"/>
-    </classes>
-  </test>
-</suite>
-
+java -cp demo-tests.jar org.testng.TestNG amazon_tests.xml
