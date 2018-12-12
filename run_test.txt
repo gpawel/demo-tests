@@ -1,2 +1,0 @@
-
-java -cp demo-tests.jar org.testng.TestNG amazon_tests.xml
