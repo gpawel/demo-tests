@@ -31,8 +31,9 @@ public class AmazonTests {
         driver = WebDriverFactory.createChromeWebDriver();
         AmazonOpen open = new AmazonOpen(driver);
         open.run();
-
     }
+
+
 
     @Test
     public void loginToAmazon() {

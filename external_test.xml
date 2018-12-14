@@ -1,0 +1,9 @@
+<suite name="AmazonLogin" verbose="1" >
+    <test name="Nopackage" >
+        <parameter name="file_name"  value="/home/pavel/workspace/qamation/documentation/Examples/WebNavigation/Amazon.xlsx"/>
+        <parameter name="file_tab" value="0"/>
+        <classes>
+            <class name="org.qamation.scenarios.amazon.run.AmazonExternalTest" />
+        </classes>
+    </test>
+</suite>
