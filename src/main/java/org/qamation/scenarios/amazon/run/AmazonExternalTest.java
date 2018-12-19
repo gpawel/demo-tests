@@ -30,8 +30,14 @@ public class AmazonExternalTest extends BasedExternalTests {
 
     @DataProvider (name = "external")
     public Iterator<Object[]> getData() {
-        org.qamation.data.provider.DataProvider provider = DataProviderFactory.createDataProviderInstance(DATA_PROVIDER_CLASS_NAME,fileName,fileTab);
-        return provider.getDataAsIterator();
+        try {
+            org.qamation.data.provider.DataProvider provider = DataProviderFactory.createDataProviderInstance(DATA_PROVIDER_CLASS_NAME, fileName, fileTab);
+            return provider.getDataAsIterator();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("Failed to create Test data provider",ex);
+        }
     }
 
     @BeforeSuite

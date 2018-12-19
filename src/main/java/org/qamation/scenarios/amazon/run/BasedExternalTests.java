@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeTest;
 
 public class BasedExternalTests extends BasedTest {
     protected static final Logger log = LoggerFactory.getLogger(BasedExternalTests.class);
-    protected static final String NAVIGATION_DELIMITER = "|";
+    protected static final String NAVIGATION_DELIMITER = "\\|";
 
     protected WebPageNavigator webPageNavigator =null;
     protected Page page = null;
