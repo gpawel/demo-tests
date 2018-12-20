@@ -10,6 +10,7 @@ import org.testng.annotations.*;
 import java.util.Iterator;
 
 public class AmazonExternalTest extends BasedExternalTests {
+
     public static final String DATA_PROVIDER_CLASS_NAME="org.qamation.data.provider.DataProviderExcelAdapter";
 
     public static Logger log = LoggerFactory.getLogger(AmazonExternalTest.class);
@@ -20,10 +21,10 @@ public class AmazonExternalTest extends BasedExternalTests {
 
 
     @Parameters({"file_name","file_tab"})
-    public AmazonExternalTest(String fName, String tab) {
+    @BeforeTest
+    public void readParameters(@Optional("amazon.xlsx") String fName, @Optional("0") String tab) {
         fileName = fName;//"/home/pavel/workspace/qamation/documentation/Examples/WebNavigation/amazon.xlsx"; //fName;
         fileTab = Integer.parseInt(tab);
-        //fileTab = Integer.parseInt("0");
     }
 
 
@@ -31,7 +32,9 @@ public class AmazonExternalTest extends BasedExternalTests {
     @DataProvider (name = "external")
     public Iterator<Object[]> getData() {
         try {
-            org.qamation.data.provider.DataProvider provider = DataProviderFactory.createDataProviderInstance(DATA_PROVIDER_CLASS_NAME, fileName, fileTab);
+            org.qamation.data.provider.DataProvider provider
+                    = org.qamation.data.provider.DataProviderFactory.createDataProviderInstance(
+                            DATA_PROVIDER_CLASS_NAME, fileName, fileTab);
             return provider.getDataAsIterator();
         }
         catch (Exception ex) {
