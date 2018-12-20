@@ -17,12 +17,11 @@
             <groupId>org.qamation</groupId>
             <artifactId>utils</artifactId>
             <version>4.0.0</version>
-            <exclusions>
-                <exclusion>  <!-- declare the exclusion here -->
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.qamation</groupId>
+            <artifactId>excel-utils</artifactId>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.qamation</groupId>

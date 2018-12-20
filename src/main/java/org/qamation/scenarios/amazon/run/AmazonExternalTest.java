@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 
 import java.util.Iterator;
 
-public class AmazonExternalTest extends BasedExternalTests {
+public class AmazonExternalTest {//extends BasedExternalTests {
 
     public static final String DATA_PROVIDER_CLASS_NAME="org.qamation.data.provider.DataProviderExcelAdapter";
 
@@ -42,7 +42,7 @@ public class AmazonExternalTest extends BasedExternalTests {
             throw new RuntimeException("Failed to create Test data provider",ex);
         }
     }
-
+/*
     @BeforeSuite
     public void beforeSuite() {
         log.info("calling beforeSuite");
@@ -55,7 +55,7 @@ public class AmazonExternalTest extends BasedExternalTests {
         createWebPage();
         driver.get("https://amazon.ca");
     }
-
+*/
     @Test(dataProvider="external")
     public void testLines(String run,
                           String comment,
@@ -78,20 +78,20 @@ public class AmazonExternalTest extends BasedExternalTests {
             log.info("=============================");
             if (navigationString.length() >0 ) {
                 log.info("Navigation: "+navigationString);
-                navigate(navigationString);
+                //navigate(navigationString);
             }
-            if (toUrl.length() > 0 ) driver.get(toUrl);
+            //if (toUrl.length() > 0 ) driver.get(toUrl);
         }
         else throw new SkipException("Test "+comment+" skipped");
 
 
     }
-
+/*
     @AfterSuite
     public void tearDawnSuite() {
         quitWebDrvier();
     }
-
+*/
 
 
 
