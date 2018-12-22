@@ -10,14 +10,7 @@ import org.testng.annotations.*;
 import java.util.Iterator;
 
 public class AmazonExternalTest {//extends BasedExternalTests {
-
-    public static final String DATA_PROVIDER_CLASS_NAME="org.qamation.data.provider.DataProviderExcelAdapter";
-
     public static Logger log = LoggerFactory.getLogger(AmazonExternalTest.class);
-
-    private String fileName;
-    private int fileTab;
-
 
 
     @Parameters({"file_name","file_tab"})
@@ -29,19 +22,7 @@ public class AmazonExternalTest {//extends BasedExternalTests {
 
 
 
-    @DataProvider (name = "external")
-    public Iterator<Object[]> getData() {
-        try {
-            org.qamation.data.provider.DataProvider provider
-                    = org.qamation.data.provider.DataProviderFactory.createDataProviderInstance(
-                            DATA_PROVIDER_CLASS_NAME, fileName, fileTab);
-            return provider.getDataAsIterator();
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            throw new RuntimeException("Failed to create Test data provider",ex);
-        }
-    }
+
 /*
     @BeforeSuite
     public void beforeSuite() {
