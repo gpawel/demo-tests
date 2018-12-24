@@ -2,6 +2,8 @@ package org.qamation.scenarios.amazon.run;
 
 import org.qamation.data.provider.DataProviderFactory;
 import org.qamation.navigator.NavigationString;
+import org.qamation.utils.FileUtils;
+import org.qamation.webdriver.utils.WebDriverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.SkipException;
@@ -9,19 +11,9 @@ import org.testng.annotations.*;
 
 import java.util.Iterator;
 
-public class AmazonExternalTest {//extends BasedExternalTests {
+public class AmazonExternalTest extends BasedExternalTests  {//extends BasedExternalTests {
     public static Logger log = LoggerFactory.getLogger(AmazonExternalTest.class);
-
-
-    @Parameters({"file_name","file_tab"})
-    @BeforeTest
-    public void readParameters(@Optional("amazon.xlsx") String fName, @Optional("0") String tab) {
-        fileName = fName;//"/home/pavel/workspace/qamation/documentation/Examples/WebNavigation/amazon.xlsx"; //fName;
-        fileTab = Integer.parseInt(tab);
-    }
-
-
-
+    public static final String DATA_PROVIDER_CLASS_NAME = "org.qamation.data.provider.DataProviderExcelAdapter";
 
 /*
     @BeforeSuite
@@ -36,8 +28,31 @@ public class AmazonExternalTest {//extends BasedExternalTests {
         createWebPage();
         driver.get("https://amazon.ca");
     }
+
 */
-    @Test(dataProvider="external")
+    @BeforeSuite
+    public void beforeSuite() {
+        log.info("calling beforeSuite");
+
+    }
+
+    @BeforeClass
+    public void beforeClass() {
+        createWebDrvier();
+        log.info("calling before Class");
+
+    }
+
+
+    @Parameters({"file_name","file_tab"})
+    @BeforeTest
+    private  void setDataFileParameters(@Optional("./testing.xlsx")String fileName, @Optional("1")String fileTab) {
+    //private  void setDataFileParameters(String fileName,String fileTab) {
+        this.fileName = fileName;
+        this.fileTab = fileTab;
+    }
+
+    @Test(dataProvider="external" )
     public void testLines(String run,
                           String comment,
                           String navigationString,
@@ -51,8 +66,8 @@ public class AmazonExternalTest {//extends BasedExternalTests {
             log.info("Run: "+run);
             log.info("Comment: "+comment);
             log.info("Navigation: "+navigationString);
-            //log.info("Locator: "+locator);
-            //log.info("Expected: "+expected);
+            log.info("Locator: "+locator);
+            log.info("Expected: "+expected);
             log.info("Extract: "+extract);
             log.info("Script: "+script);
             log.info("Navigate: "+toUrl);
@@ -67,6 +82,15 @@ public class AmazonExternalTest {//extends BasedExternalTests {
 
 
     }
+
+    public static void createWebDrvier() {
+
+        log.info("BasedTest setUp()");
+        //System.setProperty(WEB_DRIVER_PROPERTY,CHROME_DRIVER);
+        //driver = WebDriverFactory.createChromeWebDriver();
+        FileUtils.loadPropertiesFile(TIME_OUT_PROPERTIES);
+    }
+
 /*
     @AfterSuite
     public void tearDawnSuite() {

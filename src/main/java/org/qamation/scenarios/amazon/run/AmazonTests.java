@@ -14,7 +14,7 @@ public class AmazonTests extends BasedTest {
 
     @BeforeClass
     public void setUp() {
-        createWebDrvier();
+        //createWebDrvier();
         AmazonOpen open = new AmazonOpen(driver);
         open.run();
     }
