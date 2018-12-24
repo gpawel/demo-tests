@@ -1,8 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="AmazonExternalTest" verbose="1" >
-    <test name="Nopackage" >
-        <parameter name="file_name"  value="amazon.xlsx"/>
-        <parameter name="file_tab" value="0"/>
+    <parameter name="file_name"  value="amazon.xlsx"/>
+    <parameter name="file_tab" value="0"/>
+    <test name="AmazonExternalTest" >
         <classes>
             <class name="org.qamation.scenarios.amazon.run.AmazonExternalTest" />
         </classes>

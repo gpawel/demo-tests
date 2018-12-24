@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestTestNGsequence" verbose="1" >
+    <parameter name="file_name"  value="amazon.xlsx"/>
+    <parameter name="file_tab" value="0"/>
+    <test name="TestTestNGsequence">
+        <groups>
+            <run>
+                <include name="test_anatations"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="org.qamation.scenarios.amazon.run.TestTestNGsequence" />
+        </classes>
+    </test>
+
+</suite>

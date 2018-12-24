@@ -15,44 +15,43 @@ public class AmazonExternalTest extends BasedExternalTests  {//extends BasedExte
     public static Logger log = LoggerFactory.getLogger(AmazonExternalTest.class);
     public static final String DATA_PROVIDER_CLASS_NAME = "org.qamation.data.provider.DataProviderExcelAdapter";
 
+
+
+    @BeforeClass
+    public void beforeClass() {
+        log.info("calling class");
+
+
+    }
+
 /*
     @BeforeSuite
     public void beforeSuite() {
         log.info("calling beforeSuite");
-        createWebDrvier();
+
     }
 
     @BeforeClass
     public void beforeClass() {
+        createWebDrvier();
         log.info("calling before Class");
+
+    }
+
+// @BeforeSuite  IS CALLED BEFORE @BeforeClass
+
+*/
+    @Parameters({"file_name","file_tab"})
+    @BeforeSuite
+    private  void setDataFileParameters(@Optional("amazon.xlsx")String fileName, @Optional("0")String fileTab) {
+    //private  void setDataFileParameters(String fileName,String fileTab) {
+        this.fileName = fileName;
+        this.fileTab = fileTab;
         createWebPage();
         driver.get("https://amazon.ca");
     }
 
-*/
-    @BeforeSuite
-    public void beforeSuite() {
-        log.info("calling beforeSuite");
-
-    }
-
-    @BeforeClass
-    public void beforeClass() {
-        createWebDrvier();
-        log.info("calling before Class");
-
-    }
-
-
-    @Parameters({"file_name","file_tab"})
-    @BeforeTest
-    private  void setDataFileParameters(@Optional("./testing.xlsx")String fileName, @Optional("1")String fileTab) {
-    //private  void setDataFileParameters(String fileName,String fileTab) {
-        this.fileName = fileName;
-        this.fileTab = fileTab;
-    }
-
-    @Test(dataProvider="external" )
+    //@Test(dataProvider="external" )
     public void testLines(String run,
                           String comment,
                           String navigationString,
@@ -73,21 +72,20 @@ public class AmazonExternalTest extends BasedExternalTests  {//extends BasedExte
             log.info("Navigate: "+toUrl);
             log.info("=============================");
             if (navigationString.length() >0 ) {
-                log.info("Navigation: "+navigationString);
-                //navigate(navigationString);
+                //log.info("Navigation: "+navigationString);
+                navigate(navigationString);
             }
-            //if (toUrl.length() > 0 ) driver.get(toUrl);
+            if (toUrl.length() > 0 ) driver.get(toUrl);
         }
         else throw new SkipException("Test "+comment+" skipped");
 
 
     }
 
-    public static void createWebDrvier() {
-
+    public  void createWebDrvier() {
         log.info("BasedTest setUp()");
-        //System.setProperty(WEB_DRIVER_PROPERTY,CHROME_DRIVER);
-        //driver = WebDriverFactory.createChromeWebDriver();
+        System.setProperty(WEB_DRIVER_PROPERTY,CHROME_DRIVER);
+        driver = WebDriverFactory.createChromeWebDriver();
         FileUtils.loadPropertiesFile(TIME_OUT_PROPERTIES);
     }
 
