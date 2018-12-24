@@ -1,7 +1,5 @@
 package org.qamation.scenarios.amazon.run;
 
-import org.qamation.data.provider.DataProviderFactory;
-import org.qamation.navigator.NavigationString;
 import org.qamation.utils.FileUtils;
 import org.qamation.webdriver.utils.WebDriverFactory;
 import org.slf4j.Logger;
@@ -9,49 +7,23 @@ import org.slf4j.LoggerFactory;
 import org.testng.SkipException;
 import org.testng.annotations.*;
 
-import java.util.Iterator;
-
-public class AmazonExternalTest extends BasedExternalTests  {//extends BasedExternalTests {
+public class AmazonExternalTest extends BaseTest {//extends BaseExternalTests {
     public static Logger log = LoggerFactory.getLogger(AmazonExternalTest.class);
     public static final String DATA_PROVIDER_CLASS_NAME = "org.qamation.data.provider.DataProviderExcelAdapter";
 
 
-
-    @BeforeClass
-    public void beforeClass() {
-        log.info("calling class");
-
-
-    }
-
-/*
-    @BeforeSuite
-    public void beforeSuite() {
-        log.info("calling beforeSuite");
-
-    }
-
-    @BeforeClass
-    public void beforeClass() {
-        createWebDrvier();
-        log.info("calling before Class");
-
-    }
-
-// @BeforeSuite  IS CALLED BEFORE @BeforeClass
-
-*/
     @Parameters({"file_name","file_tab"})
     @BeforeSuite
     private  void setDataFileParameters(@Optional("amazon.xlsx")String fileName, @Optional("0")String fileTab) {
     //private  void setDataFileParameters(String fileName,String fileTab) {
         this.fileName = fileName;
         this.fileTab = fileTab;
+        createWebDrvier();
         createWebPage();
         driver.get("https://amazon.ca");
     }
 
-    //@Test(dataProvider="external" )
+    @Test(dataProvider="external" )
     public void testLines(String run,
                           String comment,
                           String navigationString,
@@ -82,12 +54,7 @@ public class AmazonExternalTest extends BasedExternalTests  {//extends BasedExte
 
     }
 
-    public  void createWebDrvier() {
-        log.info("BasedTest setUp()");
-        System.setProperty(WEB_DRIVER_PROPERTY,CHROME_DRIVER);
-        driver = WebDriverFactory.createChromeWebDriver();
-        FileUtils.loadPropertiesFile(TIME_OUT_PROPERTIES);
-    }
+
 
 /*
     @AfterSuite

@@ -1,6 +1,5 @@
 package org.qamation.scenarios.amazon.run;
 
-import org.openqa.selenium.WebDriver;
 import org.qamation.scenarios.amazon.AmazonLogin;
 import org.qamation.scenarios.amazon.AmazonOpen;
 import org.slf4j.Logger;
@@ -9,7 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class AmazonTests extends BasedTest {
+public class AmazonTests extends BaseTest {
     private static Logger log = LoggerFactory.getLogger(AmazonTests.class);
 
     @BeforeClass
