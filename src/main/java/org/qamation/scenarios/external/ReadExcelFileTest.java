@@ -1,4 +1,4 @@
-package org.qamation.scenarios.amazon.run;
+package org.qamation.scenarios.external;
 
 import org.testng.annotations.*;
 

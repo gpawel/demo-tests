@@ -4,7 +4,7 @@
         <parameter name="file_name"  value="amazon.xlsx"/>
         <parameter name="file_tab" value="0"/>
         <classes>
-            <class name="org.qamation.scenarios.amazon.run.ReadExcelFileTest" />
+            <class name="org.qamation.scenarios.external.ReadExcelFileTest" />
         </classes>
     </test>
 </suite>

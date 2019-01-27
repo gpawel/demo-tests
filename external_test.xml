@@ -4,7 +4,7 @@
     <parameter name="file_tab" value="0"/>
     <test name="AmazonExternalTest" >
         <classes>
-            <class name="org.qamation.scenarios.amazon.run.AmazonExternalTest" />
+            <class name="org.qamation.scenarios.external.AmazonExternalTest" />
         </classes>
     </test>
 </suite>

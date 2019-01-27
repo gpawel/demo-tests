@@ -2,7 +2,7 @@
 <suite name="AmazonLogin" verbose="1" >
   <test name="Nopackage" >
     <classes>
-       <class name="org.qamation.scenarios.amazon.run.AmazonTests" />
+       <class name="org.qamation.amazon.tests.AmazonTests" />
     </classes>
   </test>
 </suite>
