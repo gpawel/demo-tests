@@ -1,6 +1,8 @@
 package org.qamation.amazon.tests;
 
 import org.openqa.selenium.WebDriver;
+import org.qamation.amazon.Amazon;
+import org.qamation.amazon.Config;
 import org.qamation.navigator.NavigationString;
 import org.qamation.navigator.WebPageNavigator;
 import org.qamation.utils.FileUtils;
@@ -9,6 +11,8 @@ import org.qamation.web.page.Page;
 import org.qamation.webdriver.utils.WebDriverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.TestException;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 import java.util.Iterator;
@@ -16,25 +20,38 @@ import java.util.Iterator;
 public class BaseTest {
     private static Logger log = LoggerFactory.getLogger(BaseTest.class);
     protected  final String DATA_PROVIDER_CLASS_NAME = "org.qamation.data.provider.DataProviderExcelAdapter";
-    protected  final String SELENIUM_HOME = System.getProperty("user.dir")+"/../Selenium";
-    protected  final String CHROME_DRIVER = SELENIUM_HOME+"/ChromeDriver/chromedriver.exe";
-    protected  final String TIME_OUT_PROPERTIES = System.getProperty("user.dir")+"/resources/TIME_OUT.properties";
     protected  final String WEB_DRIVER_PROPERTY = "webdriver.chrome.driver";
-    protected  final String NAVIGATION_DELIMITER = "\\|";
+
+
+    protected String driverPath;
 
     protected WebDriver driver;
-    protected WebPageNavigator webPageNavigator =null;
+
     protected Page page = null;
 
-    protected String fileName;
-    protected String fileTab;
+    protected String dataFileName;
+    protected String dataFileTab;
+    protected int howMany;
+
+    protected String propertiesRoot;
+    protected Config config;
+
+    protected Amazon amazon;
+
+    @BeforeSuite
+    public void setUpSuite() {
+        propertiesRoot = System.getProperty("ROOT");
+        if (propertiesRoot == null) propertiesRoot = System.getProperty("user.dir")+"/resources";
+        config = Config.getConfig(propertiesRoot+"/etc");
+
+        driverPath = propertiesRoot+"/ChromeDriver/chromedriver.exe";
+        String fileName=System.getProperty("DATA.FILE.NAME");
+        String tabNumber=System.getProperty("DATA.FILE.TAB");
+        setDataFileName(fileName);
+        setDataFileTab(tabNumber);
+        howMany=Integer.parseInt(System.getProperty("HOW.MANY.ITERATIONS"));
 
 
-
-    @DataProvider(name = "external")
-    public Iterator<Object[]> getData() {
-        org.qamation.data.provider.DataProvider provider = getDataProvider(fileName,fileTab);
-        return provider.getDataAsIterator();
     }
 
 
@@ -46,19 +63,10 @@ public class BaseTest {
 
 
 
-    public void navigate(String navigation) {
-        NavigationString navigationString = new NavigationString(navigation,NAVIGATION_DELIMITER);
-        String[] seq = navigationString.getNavigationSequence();
-        webPageNavigator.processNavigationSequience(seq,page);
-    }
 
 
-    public  void createWebDrvier() {
-        log.info("BaseTest setUp()");
-        System.setProperty(WEB_DRIVER_PROPERTY,CHROME_DRIVER);
-        FileUtils.loadPropertiesFile(TIME_OUT_PROPERTIES);
-        driver = WebDriverFactory.createChromeWebDriver();
-    }
+
+
 
 
     public void quitWebDrvier() {
@@ -73,6 +81,41 @@ public class BaseTest {
                 fileName,
                 tab);
         return provider;
+    }
+
+    protected void setDataFileName(String fileName) {
+        if (fileName == null || fileName.isEmpty()) throw new TestException("File name is invalid");
+        this.dataFileName = config.getRootPath()+"/data/"+fileName;
+    }
+
+    protected String getDataFileName() {
+        return this.dataFileName;
+    }
+
+    protected void setDataFileTab(String fileTab) {
+        this.dataFileTab = fileTab;
+    }
+
+    protected String getDataFileTab() {
+        return this.dataFileTab;
+    }
+
+    @DataProvider(name = "iterator")
+    public Object[][] setIterations() {
+        Object[][] iteration = new Object[howMany][1];
+        for (int i=0; i<howMany; i++) {
+            iteration[i] = new Object[] {new Integer(i)};
+        }
+        return iteration;
+    }
+
+    @DataProvider(name = "external")
+    public Iterator<Object[]> getData() {
+        if (getDataFileTab().isEmpty() || getDataFileName().isEmpty()) {
+            throw new RuntimeException("External data parameters are not provided.");
+        }
+        org.qamation.data.provider.DataProvider externalDataProvider = getDataProvider(getDataFileName(),getDataFileTab());
+        return externalDataProvider.getDataAsIterator();
     }
 
 
