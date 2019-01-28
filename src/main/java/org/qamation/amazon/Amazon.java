@@ -18,26 +18,26 @@ public class Amazon {
     Page page;
     WebDriverUtils utils;
     WebPageNavigator webPageNavigator =null;
-    Config config;
-    long pauseInTests;
 
-    public Amazon(Config config) {
-        this.config = config;
-        this.driver =
+    // This is not a wait for page be ready.
+    // This delay simulates a user slowness.
+    long userSlowness;
+
+    public Amazon(WebDriver driver, long pause) {
+        this.driver = driver;
         page = new GeneralPage(driver);
         utils = new WebDriverUtils(driver);
-        webPageNavigator = new WebPageNavigator(this.driver);
-        pauseInTests =
+        webPageNavigator = new WebPageNavigator(this.driver,"\\|",page);
+        userSlowness = pause;
+
     }
 
     public void navigate(String navigation) {
        webPageNavigator.processNavigationString(navigation);
     }
 
-    public  void createWebDrvier() {
-        log.info("BaseTest setUp()");
-        System.setProperty(WEB_DRIVER_PROPERTY,CHROME_DRIVER);
-        FileUtils.loadPropertiesFile(TIME_OUT_PROPERTIES);
-        driver = WebDriverFactory.createChromeWebDriver();
+    public void userPause() {
+        utils.pause(userSlowness);
     }
+
 }

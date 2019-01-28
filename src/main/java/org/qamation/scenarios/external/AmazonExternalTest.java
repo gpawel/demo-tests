@@ -8,17 +8,10 @@ import org.testng.annotations.*;
 
 public class AmazonExternalTest extends BaseTest {//extends BaseExternalTests {
     public static Logger log = LoggerFactory.getLogger(AmazonExternalTest.class);
-    public static final String DATA_PROVIDER_CLASS_NAME = "org.qamation.data.provider.DataProviderExcelAdapter";
 
 
-    @Parameters({"file_name","file_tab"})
     @BeforeSuite
-    private  void setDataFileParameters(@Optional("amazon.xlsx")String fileName, @Optional("0")String fileTab) {
-    //private  void setDataFileParameters(String fileName,String fileTab) {
-        this.fileName = fileName;
-        this.fileTab = fileTab;
-        createWebDrvier();
-        createWebPage();
+    private  void setDataFileParameters() {
         driver.get("https://amazon.ca");
     }
 
@@ -44,11 +37,13 @@ public class AmazonExternalTest extends BaseTest {//extends BaseExternalTests {
             log.info("=============================");
             if (navigationString.length() >0 ) {
                 //log.info("Navigation: "+navigationString);
-                navigate(navigationString);
+                amazon.navigate(navigationString);
             }
             if (toUrl.length() > 0 ) driver.get(toUrl);
+            amazon.userPause();
         }
         else throw new SkipException("Test "+comment+" skipped");
+
 
 
     }
@@ -58,7 +53,7 @@ public class AmazonExternalTest extends BaseTest {//extends BaseExternalTests {
 /*
     @AfterSuite
     public void tearDawnSuite() {
-        quitWebDrvier();
+        suiteTearDown();
     }
 */
 
